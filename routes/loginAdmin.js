@@ -15,7 +15,6 @@ app.post('/user', async (req, res) => {
             message: "Please fill all the fields",
         });
     }
-
     try {
         const existingUser = await User.findOne({
             $or: [{ email }, { username }]
@@ -27,9 +26,7 @@ app.post('/user', async (req, res) => {
                 message: "Email or username already exists. Please use a different one.",
             });
         }
-
         const hashedPassword = await bcrypt.hash(password, 10);
-
         const newUser = new User({
             username,
             password: hashedPassword,
